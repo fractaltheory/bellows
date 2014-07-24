@@ -4,8 +4,43 @@ require(['config'], function() {
         'bellows'
     ],
     function($) {
+        var $console = $('#console');
+
+        var log = function(message) {
+            $console.html($console.html() + '<br />' + message);
+        };
+
+        $('#clearLog').on('click', function() {
+           $console.html('');
+        });
+
         // Default bellows initialization (/examples/default.html)
-        $('.bellows.default').bellows();
+        $('.bellows.default').bellows({
+            open: function() {
+                log('open');
+            },
+            opening: function() {
+                log('opening');
+            },
+            opened: function() {
+                log('opened');
+            },
+            afterOpen: function() {
+                log('after open');
+            },
+            close: function() {
+                log('close');
+            },
+            closing: function() {
+                log('closing');
+            },
+            closed: function() {
+                log('closed');
+            },
+            afterClose: function() {
+                log('after close');
+            }
+        });
 
         // Bellows with custom animation duration and easing (/examples/animation.html)
         $('.bellows.animation').bellows({

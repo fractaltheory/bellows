@@ -47,9 +47,13 @@
         duration: 200,
         easing: 'swing',
         open: noop,
+        opening: noop,
         opened: noop,
+        afterOpen: noop,
         close: noop,
-        closed: noop
+        closing: noop,
+        closed: noop,
+        afterClose: noop
     };
 
     Bellows.prototype._init = function(element, options) {
@@ -143,6 +147,7 @@
                 begin: function() {
                     plugin._setHeight(plugin._getHeight(plugin.$bellows) + plugin._getHeight($contentWrapper));
                     $item.addClass(OPENING_CLASS);
+                    plugin._trigger('opening', { item: $item });
                 },
                 duration: this.options.duration,
                 easing: this.options.easing,
@@ -157,6 +162,8 @@
                     plugin._trigger('opened', { item: $item });
                 }
             });
+
+        this._trigger('afterOpen', { item: $item });
     };
 
     Bellows.prototype.close = function($item) {
@@ -178,6 +185,7 @@
                     $item
                         .removeClass(OPENED_CLASS)
                         .addClass(CLOSING_CLASS);
+                    plugin._trigger('closing', { item: $item });
                 },
                 duration: this.options.duration,
                 easing: this.options.easing,
@@ -191,6 +199,8 @@
                     plugin._trigger('closed', { item: $item });
                 }
             });
+
+        this._trigger('afterClose', { item: $item });
     };
 
     /*
