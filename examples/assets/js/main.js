@@ -6,39 +6,42 @@ require(['config'], function() {
     function($) {
         var $console = $('#console');
 
-        var log = function(message) {
+        var oldLog = console.log;
+        console.log = function(message) {
             $console.html($console.html() + '<br />' + message);
+            oldLog.apply(this, arguments);
         };
 
-        $('#clearLog').on('click', function() {
-           $console.html('');
+        $('#clearLog').on('click', function(e) {
+            e.preventDefault();
+            $console.html('');
         });
 
         // Default bellows initialization (/examples/default.html)
         $('.bellows.default').bellows({
             open: function() {
-                log('open');
+                console.log('open');
             },
             opening: function() {
-                log('opening');
+                console.log('opening');
             },
             opened: function() {
-                log('opened');
+                console.log('opened');
             },
             afterOpen: function() {
-                log('after open');
+                console.log('after open');
             },
             close: function() {
-                log('close');
+                console.log('close');
             },
             closing: function() {
-                log('closing');
+                console.log('closing');
             },
             closed: function() {
-                log('closed');
+                console.log('closed');
             },
             afterClose: function() {
-                log('after close');
+                console.log('after close');
             }
         });
 

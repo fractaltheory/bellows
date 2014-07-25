@@ -141,7 +141,7 @@
         }
 
         this._trigger('open', { item: $item });
-
+        console.log($contentWrapper.length)
         $contentWrapper
             .velocity('slideDown', {
                 begin: function() {
